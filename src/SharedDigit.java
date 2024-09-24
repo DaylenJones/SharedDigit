@@ -1,27 +1,34 @@
 public class SharedDigit {
-
     public static void main(String[] args) {
-        System.out.println(hasSameLastDigit(41, 22, 71));
-        System.out.println(hasSameLastDigit(23, 32, 42));
-        System.out.println(hasSameLastDigit(9, 99, 999));
+        System.out.println(hasSharedDigit(12, 23));
+        System.out.println(hasSharedDigit(9, 99));
+        System.out.println(hasSharedDigit(12, 34));
     }
 
-    private static boolean hasSameLastDigit(int num1, int num2, int num3) {
+    private static boolean hasSharedDigit(int first, int second) {
 
-        if (!isValid(num1) || !isValid(num2) || !isValid(num3)) {
+        if (first < 10 || first > 99 || second < 10 || second > 99) {
             return false;
         }
 
 
-        int num1Last = num1 % 10;
-        int num2Last = num2 % 10;
-        int num3Last = num3 % 10;
+        while (first > 0) {
+            int firstCheck = first % 10;
+            int secondCopy = second;
 
 
-        return (num1Last == num2Last || num2Last == num3Last || num1Last == num3Last);
-    }
+            while (secondCopy > 0) {
+                int secondCheck = secondCopy % 10;
 
-    private static boolean isValid(int num) {
-        return num >= 10 && num <= 1000;
+                if (firstCheck == secondCheck) {
+                    return true;
+                }
+                secondCopy /= 10;
+            }
+            first /= 10;
+        }
+
+        return false;
     }
 }
+
